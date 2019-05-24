@@ -8,7 +8,7 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.yilin.springmvc</groupId>
+	<groupId>com.yilin.spring</groupId>
 	<artifactId>simple-springboot-mvc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>simple-springboot-mvc</name>
