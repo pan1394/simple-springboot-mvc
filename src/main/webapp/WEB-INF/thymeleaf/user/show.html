@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet"> 
+ <!--    <link th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"> -->
+    <script th:src="@{/webjars/juery/1.11.1/css/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <title>Show User</title>
+</head>
+<body>
+
+<div class="container"><br/>
+   <div class="alert alert-success">
+       <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+       <h3>index首页</h3>Hello, <strong>springboot and bootstrap！！！</strong>
+   </div>
+</div>
+
+<div class="container">
+    <h1>Hello, world!</h1>
+ 	<abbr title="world wide web">www</abbr>
+  <p>
+            排序前
+  </p>
+ <div class="row">
+       
+        <div class="col-md-4" style="background-color: #dedef8; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         我在左边
+        </div>
+        <div class="col-md-8" style="background-color: #dedef8; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         我在右边
+        </div>
+    </div>
+    <br>
+         <p>
+            排序后
+        </p>
+    <div class="row">
+   
+        <div class="col-md-4 col-md-push-8" style="background-color: #dedef8; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         我在左边
+        </div>
+        <div class="col-md-8 col-md-pull-4" style="background-color: #dedef8; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+         我在右边
+        </div>
+    </div>
+ 	 <div class="row">
+        <div class="col-md-3" style="background-color: #dedef8;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <h4>第一列</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+        </div>
+        <div class="col-md-9" style="background-color: #dedef8;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <h4>第二列 - 分为四个盒子</h4>
+            <div class="row">
+                <div class="col-md-6" style="background-color: #B18904; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <p>
+                        Consectetur art party Tonx culpa semiotics. Pinterest 
+        assumenda minim organic quis.
+                    </p>
+                </div>
+                <div class="col-md-6" style="background-color: #B18904; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <p>
+                         sed do eiusmod tempor incididunt ut labore et dolore magna 
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+        ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background-color: #B18904; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <p>
+                        quis nostrud exercitation ullamco laboris nisi ut 
+        aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+                <div class="col-md-6" style="background-color: #B18904; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna 
+        aliqua. Ut enim ad minim.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  	<div class="row" >
+        <div class="col-md-6 col-md-offset-3" style="background-color: #dedef8;box-shadow: 
+        inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing 
+            elit.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sd-3 col-md-6 col-lg-4"  style="background-color: #dedef8; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+            enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+            nisi ut aliquip ex ea commodo consequat. 
+            </p>
+ 
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa 
+            quae ab illo inventore veritatis et quasi architecto beatae vitae 
+            dicta sunt explicabo. 
+            </p>
+        </div>
+ 
+        <div class="col-sd-9 col-md-6 col-lg-8" style="background-color: #dedef8;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
+            accusantium doloremque laudantium.
+            </p>
+ 
+            <p> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, 
+            consectetur, adipisci velit, sed quia non numquam eius modi 
+            tempora incidunt ut labore et dolore magnam aliquam quaerat 
+            voluptatem. 
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-ld-1 col-md-4 col-sd-2">姓名</div>
+		<div class="col-ld-1 col-md-4 col-sd-2" th:text="${user.loginName}"></div>
+	</div>
+	<div class="row">
+		<div class="col-ld-1 col-md-4 col-sd-6">密碼</div>
+		<div class="col-ld-1 col-md-4 col-sd-6" th:text="${user.loginName}"></div>
+	</div>
+</div>
+</body>
+</html>
