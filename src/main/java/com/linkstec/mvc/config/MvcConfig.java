@@ -18,12 +18,14 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 @Configuration 
 public class MvcConfig implements WebMvcConfigurer {
-
+	
 	 @Bean
      public ViewResolver viewResolver() {
          InternalResourceViewResolver resolver = new InternalResourceViewResolver();
          resolver.setPrefix("/WEB-INF/");
          resolver.setSuffix(".jsp");
+         //view name pattern
+         //this means view names which suits below pattern will use jsp template engine.
          resolver.setViewNames("jsp/*");
          resolver.setOrder(2);
          return resolver;
@@ -52,10 +54,13 @@ public class MvcConfig implements WebMvcConfigurer {
          ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
          viewResolver.setTemplateEngine(templateEngine());
          viewResolver.setCharacterEncoding("utf-8");
+         //view name pattern
          viewResolver.setViewNames(new String[]{"thymeleaf/*"});
          viewResolver.setOrder(1);
          return viewResolver;
      }
+     
+     
 	/**
 	 * 注册拦截器
 	 * 

@@ -2,7 +2,6 @@ package com.linkstec.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,8 +15,6 @@ import com.linkstec.mvc.exception.MvcException;
 @Controller
 public class MvcController {
 
-	@Autowired
-	
     @GetMapping("/hello")
     public String hello(){   
         return "jsp/hello";
@@ -47,10 +44,5 @@ public class MvcController {
         mv.addObject("user", user);
         mv.setViewName("thymeleaf/user/show");
         return mv;
-    }
- 
-    //@RequestMapping("/error")
-    public String error(){        
-        return "jsp/error";
     }
 }
