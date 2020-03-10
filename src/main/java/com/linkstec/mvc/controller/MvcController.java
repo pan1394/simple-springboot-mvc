@@ -2,6 +2,8 @@ package com.linkstec.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -15,8 +17,15 @@ import com.linkstec.mvc.exception.MvcException;
 @Controller
 public class MvcController {
 
+	
+	private static final Logger logger = LoggerFactory.getLogger(MvcController.class);
+	
     @GetMapping("/hello")
-    public String hello(){   
+    public String hello(){  
+       logger.info("test log");
+    	/**
+    	 * 视图名字符串。
+    	 */
         return "jsp/hello";
     }
     

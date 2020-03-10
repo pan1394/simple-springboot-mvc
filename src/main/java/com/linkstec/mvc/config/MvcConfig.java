@@ -19,6 +19,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration 
 public class MvcConfig implements WebMvcConfigurer {
 	
+	/**
+	 * jsp 视图解析器
+	 * @return
+	 */
 	 @Bean
      public ViewResolver viewResolver() {
          InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -30,6 +34,7 @@ public class MvcConfig implements WebMvcConfigurer {
          resolver.setOrder(2);
          return resolver;
      }
+	 
 	 
      @Bean
      public ITemplateResolver templateResolver() {
@@ -49,6 +54,10 @@ public class MvcConfig implements WebMvcConfigurer {
          return templateEngine;
      }
 
+     /**
+      * thymeleaf 视图解析器。
+      * @return
+      */
      @Bean
      public ThymeleafViewResolver viewResolverThymeLeaf() {
          ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();

@@ -23,7 +23,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+		 
 		<!-- thymeleaf jar -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -37,6 +42,7 @@
 		    <version>3.3.7</version>
 		</dependency>
  
+ 		<!-- custom swagger ui component. -->
 		<!-- 
 		<dependency>
 			<groupId>com.panyilin</groupId>
