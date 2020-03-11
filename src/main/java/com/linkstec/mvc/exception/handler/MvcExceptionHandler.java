@@ -12,7 +12,7 @@ public class MvcExceptionHandler {
 	@ExceptionHandler
     public ModelAndView exceptionHandler(Exception ex){
 		
-        ModelAndView mv = new ModelAndView("error");
+        ModelAndView mv = new ModelAndView("jsp/error");
         if(ex instanceof MvcException) {
         	mv.addObject("exception", ex.getMessage());
         }else {

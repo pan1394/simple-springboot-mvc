@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.linkstec.mvc.dto.UserEntity;
+import com.linkstec.mvc.dto.UserDto;
 import com.linkstec.mvc.exception.MvcException;
 
 @Controller
@@ -29,7 +29,7 @@ public class MvcController {
         return "jsp/hello";
     }
     
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public String dosth(@PathVariable("id") String id, Model model){   
     	if(!StringUtils.isEmpty(id)) {
     		if(id.equals("1")) {
@@ -45,10 +45,9 @@ public class MvcController {
     
     @GetMapping(value = "/test")
     public ModelAndView test(HttpServletRequest req) {
-        UserEntity user = new UserEntity();
+        UserDto user = new UserDto();
         user.setLoginName("tom");
-        user.setId(234);
-        user.setBindType(1);
+        user.setId("asdf");
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
         mv.setViewName("thymeleaf/user/show");

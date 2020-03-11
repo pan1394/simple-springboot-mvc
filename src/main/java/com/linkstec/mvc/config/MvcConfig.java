@@ -1,5 +1,6 @@
 package com.linkstec.mvc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -12,6 +13,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+
+import com.linkstec.mvc.exception.handler.AuthHandler;
 
 /**
  * Created by panyilin on 2019/5/19.
@@ -70,12 +73,18 @@ public class MvcConfig implements WebMvcConfigurer {
      }
      
      
+     @Bean
+     public AuthHandler auth() {
+    	 AuthHandler auth = new AuthHandler();
+    	 return auth;
+     }
 	/**
 	 * 注册拦截器
 	 * 
 	 * @param registry
 	 */
 	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(auth()).addPathPatterns("/**");
 	}
  
 	/**
@@ -84,8 +93,8 @@ public class MvcConfig implements WebMvcConfigurer {
 	 * @param registry
 	 */
 	public void addViewControllers(ViewControllerRegistry registry) {
- 		 registry.addViewController("/login").setViewName("jsp/hello");
- 		 registry.addViewController("/index").setViewName("jsp/hello");
+ 		 registry.addViewController("/login").setViewName("thymeleaf/login");
+ 		 registry.addViewController("/index").setViewName("thymeleaf/login");
  		 registry.addViewController("/").setViewName("thymeleaf/login"); 
 	}
 
@@ -95,5 +104,7 @@ public class MvcConfig implements WebMvcConfigurer {
 //		super.addResourceHandlers(registry);
 	}
 
+	
+	 
 	
 }
