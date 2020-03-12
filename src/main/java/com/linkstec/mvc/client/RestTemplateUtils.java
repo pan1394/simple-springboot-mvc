@@ -1,75 +1,151 @@
 package com.linkstec.mvc.client;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class RestTemplateUtils {
 
-	public static String delete(String url, Map<String, String> param) {
-		return execute(url, param, String.class, HttpMethod.DELETE, null);
+	public static String delete(String url, Object param) {
+		return delete(url, param, String.class);
+	}
+
+	public static <T> T delete(String url, Object req, Class<T> responseType) {
+		return execute(url, req, responseType, HttpMethod.DELETE);
+	}
+
+	public static String put(String url, Object param) {
+		return put(url, param, String.class);
+	}
+
+	public static <T> T put(String url, Object req, Class<T> responseType) {
+		return execute(url, req, responseType, HttpMethod.PUT);
+	}
+
+	public static String post(String url, Object param) {
+		return post(url, param, String.class);
+	}
+
+	public static <T> T post(String url, Object req, Class<T> responseType) {
+		return execute(url, req, responseType, HttpMethod.POST);
 	}
 	
-	public static String put(String url, Map<String, String> param) {
-		return execute(url, param, String.class, HttpMethod.PUT, null);
+	public static String get(String url, Object param) {
+		return get(url, param, String.class);
 	}
-	
-	public static String post(String url, Map<String, String> param) {
-		return execute(url, param, String.class, HttpMethod.POST, null);
+
+	public static <T> T get(String url, Object req, Class<T> responseType) {
+		return execute(url, req, responseType, HttpMethod.GET);
 	}
-	
-	public static String get(String url, Map<String, String> param) {
-		return execute(url, param, String.class, HttpMethod.GET, null);
-	}
-	
+
 	public static HttpHeaders head(String url) {
-		return execute(url, new HashMap<String,String>(), HttpHeaders.class, HttpMethod.HEAD, null);
+		return execute(url, new HashMap<String,String>(), HttpHeaders.class, HttpMethod.HEAD);
 	}
 	
 	public static Set<HttpMethod> options(String url) {
-		return execute(url, new HashMap<String,String>(), Set.class, HttpMethod.OPTIONS, null);
+		return execute(url, new HashMap<String,String>(), Set.class, HttpMethod.OPTIONS);
 	}
-	
-	public static <T> T execute(String url, Map<String, String> param, Class<T> clazz, HttpMethod m, String token) {
+
+	public static <T> T execute(String url, Object body, Class<T> responseType, HttpMethod method){
+		Map<String, String> headerMap = new HashMap<>();
+		headerMap.put("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYiIsImV4cCI6MTU4MzkxODA0NH0.RC0ghOvCB3f2MxQDPEufYKU3UwpGQKUM_7o55ty4qB0");
+		if(body instanceof Map){
+			Map<String, String> paramMap = (Map<String, String>) body;
+			return execute2(url, paramMap, responseType, method, headerMap);
+		}else{
+			return execute(url, body, responseType, method, headerMap);
+		}
+	}
+
+	private static <T> T execute2(String url, Map<String, String> param, Class<T> clazz, HttpMethod method, Map<String, String> headerMap) {
 		RestTemplate restTemplate = new RestTemplate();
 		T response = null;
 		MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<String, Object>();
 		param.forEach((String t, String u) -> {
 				paramMap.add(t, u);
 			}
-		 ); 
-		
+		 );
+
 		StringBuilder sb = new StringBuilder(url);
 		sb.append("?");
 		param.forEach((k,v) -> {
 			sb.append(String.format("%s=%s&", k,v));
 		});
-		String reqUrl = sb.toString();
-		
-		HttpHeaders header = new HttpHeaders();  
-//	    header.setContentType();
-		header.add("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYiIsImV4cCI6MTU4MzkxODA0NH0.RC0ghOvCB3f2MxQDPEufYKU3UwpGQKUM_7o55ty4qB0");
-		if(m == HttpMethod.DELETE || m == HttpMethod.GET || m == HttpMethod.POST || m == HttpMethod.PUT ) {
-			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(paramMap, header);
-		    ResponseEntity<T> res = restTemplate.exchange(reqUrl, m, requestEntity, clazz);
+		String reqUrlWithParam = sb.toString();
+
+		HttpHeaders header = new HttpHeaders();
+// 	    header.setContentType(MediaType.APPLICATION_JSON);
+	    headerMap.forEach((k,v) -> {
+	    	header.add(k, v);
+		});
+
+	    if(method == HttpMethod.DELETE || method == HttpMethod.GET || method == HttpMethod.PUT ) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+		    ResponseEntity<T> res = restTemplate.exchange(reqUrlWithParam, method, requestEntity, clazz);
 		    return res.getBody();
-		}else if(m == HttpMethod.HEAD) {
+		}else if(method == HttpMethod.POST){
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(paramMap, header);
-		    ResponseEntity<T> res = restTemplate.exchange(reqUrl, m, requestEntity, clazz);
+			ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
+			return res.getBody();
+		}else if(method == HttpMethod.HEAD) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+		    ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
 		    return (T) res.getHeaders();
-		}else if(m == HttpMethod.OPTIONS) {
-			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(paramMap, header);
-		    ResponseEntity<T> res = restTemplate.exchange(reqUrl, m, requestEntity, clazz);
+		}else if(method == HttpMethod.OPTIONS) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+		    ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
 		    return (T) res.getHeaders().getAllow();
 		}
 		return response; 
+	}
+
+	private static <T> T execute(String url, Object body, Class<T> clazz, HttpMethod method, Map<String, String> headerMap) {
+		RestTemplate restTemplate = new RestTemplate();
+		T response = null;
+		Map<String, String> param = (Map<String, String>) JSONObject.parseObject(JSONObject.toJSONString(body), Map.class);
+
+		MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<String, Object>();
+		param.forEach((String t, String u) -> {
+					paramMap.add(t, u);
+				}
+		);
+
+		StringBuilder sb = new StringBuilder(url);
+		sb.append("?");
+		param.forEach((k,v) -> {
+			sb.append(String.format("%s=%s&", k,v));
+		});
+		String reqUrlWithParam = sb.toString();
+
+		HttpHeaders header = new HttpHeaders();
+// 	    header.setContentType(MediaType.APPLICATION_JSON);
+		headerMap.forEach((k,v) -> {
+			header.add(k, v);
+		});
+
+		if(method == HttpMethod.DELETE || method == HttpMethod.GET || method == HttpMethod.PUT ) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+			ResponseEntity<T> res = restTemplate.exchange(reqUrlWithParam, method, requestEntity, clazz);
+			return res.getBody();
+		}else if(method == HttpMethod.POST){
+			HttpEntity<Object> requestEntity = new HttpEntity<Object>(body, header);
+			ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
+			return res.getBody();
+		}else if(method == HttpMethod.HEAD) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+			ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
+			return (T) res.getHeaders();
+		}else if(method == HttpMethod.OPTIONS) {
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(null, header);
+			ResponseEntity<T> res = restTemplate.exchange(url, method, requestEntity, clazz);
+			return (T) res.getHeaders().getAllow();
+		}
+		return response;
 	}
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 public class Test {
 
 	public static void main(String[] args) {
- 		String url = "http://localhost:8083/user/";
+ 		String url = "http://localhost:8083/user";
  		String obj = RestTemplateUtils.get(url, new HashMap<>());
  		System.out.println(obj);
  		
