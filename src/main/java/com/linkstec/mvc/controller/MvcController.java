@@ -1,7 +1,7 @@
 package com.linkstec.mvc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.linkstec.mvc.dto.UserDto;
+import com.linkstec.mvc.exception.MvcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.linkstec.mvc.dto.UserDto;
-import com.linkstec.mvc.exception.MvcException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MvcController {
-
 	
 	private static final Logger logger = LoggerFactory.getLogger(MvcController.class);
 	

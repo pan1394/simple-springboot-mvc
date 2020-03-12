@@ -72,19 +72,16 @@ public class MvcConfig implements WebMvcConfigurer {
          return viewResolver;
      }
      
-     
-     @Bean
-     public AuthHandler auth() {
-    	 AuthHandler auth = new AuthHandler();
-    	 return auth;
-     }
+    @Autowired
+    private AuthHandler authInterceptor;
+    
 	/**
-	 * 注册拦截器
+	 *  注册拦截器
 	 * 
 	 * @param registry
 	 */
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(auth()).addPathPatterns("/**");
+		registry.addInterceptor(authInterceptor).addPathPatterns("/**");
 	}
  
 	/**
@@ -103,8 +100,4 @@ public class MvcConfig implements WebMvcConfigurer {
 //		registry.addResourceHandler("/**").addResourceLocations("classpath:/jsp/");
 //		super.addResourceHandlers(registry);
 	}
-
-	
-	 
-	
 }
