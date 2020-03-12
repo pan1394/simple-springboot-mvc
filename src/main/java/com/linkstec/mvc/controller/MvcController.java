@@ -2,8 +2,7 @@ package com.linkstec.mvc.controller;
 
 import com.linkstec.mvc.dto.UserDto;
 import com.linkstec.mvc.exception.MvcException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -13,14 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Controller
 public class MvcController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MvcController.class);
-	
     @GetMapping("/hello")
     public String hello(){  
-       logger.info("test log");
+       log.info("test log");
     	/**
     	 * 视图名字符串。
     	 */

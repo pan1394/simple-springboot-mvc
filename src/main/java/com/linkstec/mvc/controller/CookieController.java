@@ -1,27 +1,24 @@
 package com.linkstec.mvc.controller;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+@Slf4j
 @Controller
 @RequestMapping("/cookie")
 @ResponseBody
 public class CookieController {
-	
-	private Logger logger = LoggerFactory.getLogger(CookieController.class);
-	
+
 	@GetMapping("/change-username")
 	public String setCookie(HttpServletResponse response) {
 	    Cookie cookie = new Cookie("username", "Jovan");
